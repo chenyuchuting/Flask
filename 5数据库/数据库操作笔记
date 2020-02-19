@@ -12,3 +12,4 @@ alembic主要是为了解决项目模型在字段修改的情况下，数据库�
 在cmd命令下先生成迁移的脚本，在把迁移脚本映射到数据库中，使用命令：alembic revision --autogenerate -m "first commit"，在D:\chain\demo8\alembic\versions文件下会生成一个缓存文件，其中"first commit"是添加脚本文件缓存的说明。
 
 将生成的脚本映射到数据库中，alembic upgrade head。
+
