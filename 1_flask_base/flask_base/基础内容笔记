@@ -1,0 +1,30 @@
+1. 开发工具
+Anaconda3-5.2.0。下载网址：https://www.anaconda.com/
+PyCharm专业版。下载网址：https://www.jetbrains.com/pycharm/，目前这个网址国内无法访问。要想学习Python，就自己想办法下载吧。
+上述软件的安装和配置我就不多赘述了，有不明白的也不要给我发私信，毕竟网上安装Anaconda和PyCharm软件的教程很多很专业。
+Flask框架。介绍网址：https://dormousehole.readthedocs.io/en/latest/。从这个网址你能学习到Flask框架的介绍，如果你足够细心，能下载更为详细的框架介绍。
+
+2. 学习方式
+纸上得来终觉浅，绝知此事要躬行。学习编程要持之以恒，切勿急功近利，大多数时候是我们思维方式受限，没有提炼出解决问题的思路和方式，不要着急，时间会给你答案，前提是自己要多归纳演绎。
+格物致知。编程过程是一个认知自我的过程，世事千变万化非进则退，在编程的世界里，你总能找到真我，享受让思想在指尖飞翔的感觉。
+感恩头条。本人非科班编程人才，而立之年才开始学习编程，得益于头条的价值理念，让我开始去分享自己在学习编程的路上遇到的有趣的事情。
+
+3. 基本概念
+WEB服务器：主要处理HTTP请求，响应静态文件。例如：Apache。
+应用服务器：主要处理业务逻辑。例如：uwsgi。
+WEB应用框架：主要封装了主要的WEB功能，避免重复的造轮子。例如：Django。
+
+4. 创建项目
+打开PyCharm专业版->File->New Project->Flask->【其它参数配置】。项目命名的文件为：first_flask_project.py
+
+5. DEBUG模式
+为什么要开启DEBUG模式
+开启DEBUG模式后，如果程序代码在执行时抛出了异常，在浏览器页面中可以清晰的看到错误信息及错误位置，方便开发人员调试。
+开启DEBUG模式后，在Python中修改任何代码，只要按下Ctrl+S，整个FLask项目就会重载整个网站，不再需要点击重新运行。
+利用PyCharm创建demo项目，在运行按钮旁边，选择下拉菜单Edit Configurations，勾选：FLASK DEBUG。
+在app.py文件中，向app.run(debug=True)传递debug=True参数，就可以开启DEBUG模式。（测试未通过）
+在app.py文件中，利用如下命令app.debug = True。（测试未通过）
+在app.py文件中，通过配置参数的形式：app.config.update(DEBUG=True)（测试未通过）
+在项目demo目录下，通过配置文件的形式，创建config.py文件，输入DEBUG=True，然后在app.py文件导入：import config，使用如下命令：app.config.from_object(config)，如果使用app.config.from_pyfile('config.py')，则不需要导入：import config，不知可以传入py文件，也可以传入txt文件。（测试未通过）
+PIN码：如果你想在错误的浏览器页面上调试代码，需要点击错误信息的右侧命令行图标，会弹出窗口要求输入PIN码。
+请尽量避免在生产环境下通过浏览器调试代码，这样会给项目带来安全隐患。
