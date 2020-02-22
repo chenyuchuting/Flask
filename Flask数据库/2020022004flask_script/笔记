@@ -1,0 +1,9 @@
+1. 创建manage.py文件，避免主程序文件越来越大
+2. 在manage.py中导入flask_script(从python库的网站下载Flask_Script-2.0.6-py2.py3-none-any文件，使用pip方式安装)，
+再导入app，使得manage对象和app文件关联
+3. 在pycharm中打开Terminal：输入python manage.py hello
+4. 使用manage实例使函数转化为执行命令的方式，使用的使装饰器的方式，在Terminal输入python manage.py add_user -u chain -a 18
+5. 创建超级管理员，在app中建立模型，在manage.py文件中导入模型和db
+6. 创建命令：python manage.py add_user -u link -e 7afdss@qq.com
+7. 命令的分开管理，新建一个文件db_manage.py
+8. 在manage.py文件中将db_manager导入，建立关联manager.add_command('db', db_manager)

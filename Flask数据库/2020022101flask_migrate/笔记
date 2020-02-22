@@ -1,0 +1,8 @@
+1. 将模型统一模块化放在一起，放在models.py文件中
+2. 循环引用的解决办法，将models.py文件和app.py文件相互的引用分开，建立第三个文件exts.py，exts.py只放置db的实例。
+在app.py文件中导入exts中的db，使得db.init_app(app)
+3. flask_migrate，一大堆的命令放在其中，建立manage.py文件，创建命令的链接
+4. 使用manage.py文件中命令，首先是初始化一个环境，python manage.py db init，其次是自动检测模型，生成迁移脚本，python manage.py db migrate，这个时候会在versions文件夹内产生一个迁移脚本，最后进行更新：python manage.py db upgrade。
+5. 显示所有命令的参数的命令：python manage.py db --help
+
+

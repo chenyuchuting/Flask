@@ -1,0 +1,11 @@
+1. 创建配置文件config.py
+2. 在app.py文件中进行配置
+3. 设计对象模型
+4. 使用命令创建alembic仓库：alembic init alembic
+5. 配置alembic.ini文件，使sqlalchemy.url = mysql+pymysql://root:123@localhost/test?charset=utf8
+
+创建数据库的代码：create database test default character set utf8;
+删除数据库的代码：drop database test;
+6. 配置env.py文件，使target_metadata = app.db.Model.metadata
+7. 在cmd命令下：alembic revision --autogenerate -m "first commit"生成迁移脚本
+8. 在cmd命令下：alembic upgrade head
