@@ -1,9 +1,0 @@
-# 常用的命令
-1. alembic init alembic：创建一个名字为alembic的仓库
-2. alembic revision --autogenerate -m "第一次提交"：生成一个迁移的脚本；revision是创建一个新的版本文件；--autogenerate自动将当前模型的修改，生成迁移脚本；-m是本次迁移做出了哪些修改，用户可以指定这个参数，方便回顾。
-3. alembic upgrade head：将生成的迁移脚本映射到数据库中
-4. alembic downgrade 版本号：迁移到特定的版本号中。
-5. alembic history：列出所有的迁移版本信息。
-6. alembic current：展示当前数据库中的版本号。
-
-#
