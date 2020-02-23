@@ -1,13 +1,13 @@
-from flask import Flask, request
+from flask import Flask, request, url_for
 # import uuid
 # print(uuid.uuid4())
 
 app = Flask(__name__)
 
 
-@app.route('/')
-def hello_world():
-    return 'Hello World!'
+# @app.route('/')
+# def hello_world():
+#     return 'Hello World!'
 
 
 @app.route('/list/')
@@ -52,6 +52,31 @@ def root():
 def get():
     arg = request.args.get('name')
     return '获取的name值为%s' % arg
+
+
+# 返回的是/list/1?count=2
+# url_for第一个参数是视图函数的名字，数据类型为字符串
+# 后面的参数是传递给视图函数，如果传递的参数在视图函数中已经定义
+# 那么这个参数就会被当成path的形式给视图函数
+
+
+@app.route('/')
+def hello_world():
+    # 打印的是：/login?auth=%2F
+    print(url_for('login', auth='/'))
+    # 如果这个参数之前没有在视图函数中定义，page=1已经定义
+    # 那么这个参数变成查询字符串的形式放到视图函数中
+    return url_for('my_list', page=1, count=2)
+
+
+@app.route('/list/<page>')
+def my_list(page):
+    return "这是第%s页" % page
+
+
+@app.route('/login')
+def login():
+    return 'login'
 
 
 if __name__ == '__main__':
