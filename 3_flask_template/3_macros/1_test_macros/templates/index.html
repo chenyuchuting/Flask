@@ -1,0 +1,16 @@
+{#{% from "macros.html" import input %}#}
+{% import "macros.html" as forms %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>宏的使用</title>
+</head>
+<body>
+{#    <p>用户名:{{ input('username') }}</p>#}
+{#    <p>密码：{{ input('password', type='password') }}</p>#}
+    <hr>
+    <p>用户名:{{ forms.input('username') }}</p>
+    <p>密码：{{ forms.input('password', type='password') }}</p>
+</body>
+</html>
