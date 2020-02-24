@@ -20,3 +20,8 @@
         tojson()：
         truncate()：
     2.4 自定义过滤器：需要使用app.template_filter("转换器名称")，转换器名称需要和函数名保持一致。
+3. 模板中的循环和控制语句
+    3.1 所有的循环和控制语句必须在{% %}中，并且以{% endxxx %}进行结束。
+    3.2 if语句的使用，请查看如下的代码。
+    3.3 for语句的使用，特别注意的是如果for循环的时候没有值，可以增加{% else %}语句进行控制，请查看如下的代码。
+    3.4 需要关注的是loop.index、loop.index0、koop.first、loop.last、loop.last的使用方法。
