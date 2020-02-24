@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>
+        {% block title %}
+            Chain的网站
+        {% endblock %}
+    </title>
+    <style>
+        .nav ul{
+            overflow: hidden;
+        }
+        .nav ul li{
+            float: left;
+            margin: 0 20px;
+        }
+    </style>
+</head>
+<body>
+    <nav class="nav">
+        <ul>
+            <li>首页</li>
+            <li>视频</li>
+            <li>图书</li>
+            <li>音乐</li>
+        </ul>
+    </nav>
+
+    {% block body_block %}
+        <p>我是base文件中的内容</p>
+    {% endblock %}
+
+    <footer>
+        <p>底部内容</p>
+    </footer>
+</body>
+</html>
