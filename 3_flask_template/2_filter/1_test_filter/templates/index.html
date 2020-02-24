@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>首页</title>
+</head>
+<body>
+    <h1>模板循环</h1>
+    <ul>
+        {% for user in users %}
+            <li>{{ user }}</li>
+        {% endfor %}
+    </ul>
+    <hr>
+    {% if person.age <= 18%}
+        <span>青少年</span>
+    {% elif person.age <= 30 %}
+        <span>青年</span>
+    {% else %}
+        <span>壮年</span>
+    {% endif %}
+    <hr>
+    <ul>
+        {% for i in ids %}
+            <li>{{ i }}</li>
+        {% else %}
+            <li>您还未创建用户</li>
+        {% endfor %}
+    </ul>
+    <hr>
+    <table>
+        <thead>
+            <tr>
+                <td>序号</td>
+                <td>名称</td>
+                <td>作者</td>
+                <td>编码</td>
+            </tr>
+        </thead>
+        <tbody>
+            {% for book in books %}
+                {% if loop.last %}
+                    <tr style="background-color: cornsilk">
+                {% else %}
+                    <tr>
+                {% endif %}
+                    <td>{{ loop.index }}</td>
+                    <td>{{ book.name }}</td>
+                    <td>{{ book.author }}</td>
+                    <td>{{ book.code }}</td>
+                </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+</body>
+</html>
