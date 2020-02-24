@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>模板的使用</title>
+</head>
+<body>
+    {% include "common/header.html" %}
+    <div class="content">
+        <p>中间内容</p>
+    </div>
+    {% include "common/footer.html" %}
+    <hr>
+    <p>以下为set的测试内容</p>
+    {% set username="Link" %}
+    <p>用户名：{{ username }}</p>
+    {% with username2="Link2" %}
+        <p>用户名2：{{ username2 }}</p>
+    {% endwith %}
+    {% with %}
+        {% set username3="Link3" %}
+        <p>用户名3：{{ username3 }}</p>
+    {% endwith %}
+    <hr>
+    <img src="{{ url_for("static", filename="imgs/图片1.jpeg") }}" alt="">
+</body>
+</html>
