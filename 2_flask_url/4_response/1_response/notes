@@ -1,0 +1,6 @@
+1. 关于Response响应
+    1.1 视图函数的返回值会被Flask自动转换一个响应对象，转换的逻辑如下。
+    1.2 如果视图函数返回的是一个正常的Response对象，则直接返回。
+    1.3 如果视图函数返回的是一个字符串，Flask会重新创建一个werkzeug.wrappers.Response对象，Response将该字符串作为主体返回，当然也包含报文协议、报文首部。
+    1.4 如果视图函数返回的是一个元组，元组的格式为response,status,headers，status是状态码，headers可以是列表、字典作为头信息。
+    1.5 如果视图函数返回的内容都不满足，Flask会假设返回值是一个合法的WSGI的应用程序，通过Response.force_type(rv, request.environ)转换为一个请求的对象。
