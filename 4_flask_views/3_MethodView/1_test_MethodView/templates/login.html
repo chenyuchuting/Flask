@@ -1,0 +1,29 @@
+{% extends "common/base.html" %}
+
+{% block title %}
+    Chain
+{% endblock %}
+
+{% block body_block %}
+    <form action="" method="post">
+        <table>
+            <tbody>
+                <tr>
+                    <td>用户名：</td>
+                    <td><input type="text" name="username"></td>
+                </tr>
+                <tr>
+                    <td>密码：</td>
+                    <td><input type="password" name="password"></td>
+                </tr>
+                <tr>
+                    <td></td>
+                    <td><input type="submit" value="登录"></td>
+                </tr>
+            </tbody>
+        </table>
+    {% if error %}
+        <p style="color: red">{{ error }}</p>
+    {% endif %}
+    </form>
+{% endblock %}
