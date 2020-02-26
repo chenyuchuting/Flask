@@ -1,0 +1,4 @@
+1. 子域名的实现方式
+    1.1 如果你使用蓝图，那么在创建蓝图对象的时候，需要传递一个subdomain参数，来指定这个子域名的前缀crm_bp = Blueprint('crm', __name__, subdomain="crm")；接着你需要在app.py这个主文件中配置app.config['SERVER_NAME'] = "chain.com:5000"；最后要在Windows下找到C:\Windows\System32\drivers\etc文件夹中的hosts文件，添加域名与本机的映射，例如127.0.0.1 chain.com和127.0.0.1 crm.chain.com。
+    1.2 需要注意的是IP地址和localhost是不能有子域名的。
+Windows生成目录树的cmd命令：首先进入到项目的盘d:；其次是通过cd命令进入到项目的根文件；最后使用tree /f >list.txt生成目录树。
