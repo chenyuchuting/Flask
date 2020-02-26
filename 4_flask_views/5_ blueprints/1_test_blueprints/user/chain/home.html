@@ -1,0 +1,14 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Chain/home</title>
+    <!-- users.static中的users对应的是蓝本文件中name参数，而不是文件的名称 -->
+    <!-- admin_css.css文件的名字必须个blue_static的名字相同 -->
+    <link rel="stylesheet" href="{{ url_for('users.static', filename='admin_css.css') }}">
+</head>
+<body>
+    <p>蓝本-网站的主页</p>
+    <a href="{{ url_for("users.book_list") }}">url_for反转蓝图</a>
+</body>
+</html>
