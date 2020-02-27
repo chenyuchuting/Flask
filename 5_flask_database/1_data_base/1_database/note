@@ -1,0 +1,7 @@
+1. 数据的基础
+    1.1 MySQL数据库ZIP格式下安装方式。首先将MySQL的bin文件添加到环境变量中；以管理员身份运行cmd命令，输入mysqld --install；执行 net start mysql命令启动MySQL服务；输入mysql -uroot -p命令进入数据库内，执行net stop mysql命令关闭MySQL服务。
+    1.2 安装mysql-python包。在Windows系统下，使用pip install mysql-python安装失败，使用Pycharm安装也显示失败，最后从Python的扩展库网站下载：MySQL_python-1.2.5-cp27-none-win_amd64.whl文件，将上面的27修改为对应的Python版本号3.6，使用pip方式最终安装成功。
+
+2. SQLAlchemy的基本介绍
+    2.1 数据库是网站的基础，一切网站的活动都是由数据库和业务链接起来的，也就是说数据库中的数据模型，是对现实业务逻辑的高度抽象。
+    2.2 使用SQLAlchemy连接数据库，首先要配置一些基本的信息，例如主机名称、端口号、数据库、用户名和密码；再将上述的基本信息组合成满足条件的字符串DB_URI；使用create_engine创造引擎；再调用这个引擎的connet方法，就可以得到一个对象，这个对象就可以对数据库进行操作了。
