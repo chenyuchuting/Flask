@@ -1,0 +1,10 @@
+1. SQLAIchemy
+    1.1 随着项目越来越大，采用写原生SQL的方式在代码中出现大量的SQL语句，我们就要考虑代码的利用率、修改性、安全性等问题，就需要对这些大量的SQL语句再进行抽象，抽象的结果就是ORM。
+    1.2 ORM（object relational mapping）对象关系映射，通过ORM可以通过类的方式操作数据库，而不用再写原生的SQL语句，通过把表映射成类，把行映射为实例，把字段作为属性。
+
+2. 将ORM模型映射到数据库中
+    2.1 用declarative_base()根据engine创建一个ORM基类，engine = create_engine(DB_URI)，Base = declarative_base(engine)
+    2.2 用这个Base类作为基类来写自己的ORM，要定义__tablename__类属性，来指定这个模型映射到数据库中的表名。
+    2.3 创建属性来映射到表中的字段，所有需要映射到表中的属性都应该为Column类型。
+    2.4 使用Base.metadata.create_all()将模型映射到数据库中。
+    2.5 一旦使用Base.metadata.create_all()将模型映射到数据库中，即使改变了模型的字段，也不会重新改变数据库中表的结构。
