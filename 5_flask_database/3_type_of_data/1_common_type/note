@@ -1,0 +1,10 @@
+1. SQLAIchemy常用的数据类型
+    1.1 Integer：整型。
+    1.2 Float：浮点型。
+    1.3 Double：双精度浮点类型。
+    1.4 String：可变字符类型。
+    1.5 Boolean：布尔类型。
+    1.6 enum：枚举类型。你也可以利用python3自带的enum模块，建立枚举类传入。
+    1.7 Date：日期类型。
+    1.8 DateTime：日期时间类型。
+    1.9 Time：时间类型。
