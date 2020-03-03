@@ -1,0 +1,2 @@
+1. ORM一对多
+    1.1 在从表中设置外键，但是通过外键查询主表中的数据有些麻烦，于是sqlalchemy.orm中就提供了relationship类，这个relationship类可以定义模型中的属性，无论是主表访问从表还是从表访问主表，都可以通过这个relationship创建的模型属性相互访问数据，非常方便。
