@@ -1,0 +1,4 @@
+1. ORM一对一
+    1.1 在SQLAlchemy中，两个模型要映射一对一的关系，你需要在主表中的relationship类中指定一个uselist=False的关键字参数，这样映射到从表中就不再是一个列表了，而是一个对象了。
+    1.2 此外在从表中relationship类中，如果有backref关键字参数，那么主表中就不能再再有relationship类了。
+    1.3 此外要明确外键ForeignKey中的参数是表名字.表字段，relationship中的参数是对象模型的名字，这两个参数不要搞混淆了，都是字符串格式的参数。
