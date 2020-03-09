@@ -14,3 +14,8 @@ class LoginForm(Form):
     def validate_captcha(self, field):
         if field.data != '1234':
             raise ValidationError("验证码错误！")
+
+
+class SettingsForm(Form):
+    username = StringField("用户名", validators=[InputRequired()])
+    age = IntegerField('年龄', validators=[Length(10, 100)])
