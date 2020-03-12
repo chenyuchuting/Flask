@@ -1,5 +1,7 @@
 from flask import Flask, request, render_template, send_from_directory
 from werkzeug.utils import secure_filename
+from forms import UpLoadForm
+from werkzeug.datastructures import CombinedMultiDict
 import os
 
 app = Flask(__name__)
@@ -17,12 +19,21 @@ def upload():
     if request.method == 'GET':
         return render_template('upload.html')
     else:
-        desc = request.form.get("desc")
-        file = request.files.get("avatar")
-        filename = secure_filename(file.filename)
-        file.save(os.path.join(UPLOAD_PATH, filename))
-        print(desc)
-        return "文件上传成功！"
+        # flask.request.files和flask.request.form来进行合并再传到form中进行验证
+        form = UpLoadForm(CombinedMultiDict([request.form, request.files]))  # request.form类似元组类型
+        if form.validate():
+            # desc = request.form.get("desc")
+            # file = request.files.get("avatar")
+            desc = form.desc.data
+            file = form.avatar.data
+            # 此函数获取文件名时安全，但对中文名获取时，获取不到中文
+            filename = secure_filename(file.filename)
+            file.save(os.path.join(UPLOAD_PATH, filename))
+            print(desc)
+            return "文件上传成功！"
+        else:
+            print(form.errors)
+            return "Fail"
 
 
 @app.route('/images/<filename>/')
