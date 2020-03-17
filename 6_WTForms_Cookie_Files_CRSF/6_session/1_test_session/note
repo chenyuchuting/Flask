@@ -1,0 +1,11 @@
+1. session是什么
+    1.1 session是为了储存与客户相关的信息，它是一个思路
+2. session存储在服务器端
+    2.1 服务器端可以采用mysql、redis、memcached等来存储session信息。原理是，客户端发送验证信息过来（比如用户名和密码），服务器验证成功后，把用户的相关信息存储到session中，然后随机生成一个唯一的session_id，再把这个session_id存储cookie中返回给浏览器。浏览器以后再请求我们服务器的时候，就会把这个session_id自动的发送给服务器，服务器再从cookie中提取session_id，然后从服务器的session容器中找到这个用户的相关信息。这样就可以达到安全识别用户的需求了。
+3. session存储到客户端
+    3.1原理是，客户端发送验证信息过来（比如用户名和密码）。服务器把相关的验证信息进行一个非常严格和安全的加密方式进行加密，然后再把这个加密后的信息存储到cookie，返回给浏览器。以后浏览器再请求服务器的时候，就会自动的把cookie发送给服务器，服务器拿到cookie后，就从cookie找到加密的那个session信息，然后也可以实现安全识别用户的需求了。
+4. Flask操作session
+    4.1 设置session：通过flask导入session，它的操作如同字典一样，session['username'] = 'chain'
+    4.2 获取session：一般通过session.get('username')
+    4.3 删除session：常见的有三种方式删除session。第一种session.pop('username')；第二章del session['username']；第三种是session.clear()。
+    4.4 设置session时长。首先要配置app.config['PERMANENT_SESSION_LIFETIME']，其次是设置session.permanent = True。
