@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <script src="static/js/jquery.min.js"></script>
+</head>
+<body>
+    <form action="http://127.0.0.1:5001/transfer/" method="post" id="myform">
+        <table>
+            <tbody>
+                <tr>
+{#                  <tr>转到邮箱</tr>#}
+                    <tr></tr>
+                    <tr><input type="hidden" name="email" value="126@126.com"></tr>
+                </tr>
+                <tr>
+{#                  <tr>转到金额</tr>#}
+                    <tr></tr>
+                    <tr><input type="hidden" name="money" value="1000"></tr>
+                </tr>
+                <tr>
+                    <tr></tr>
+                    <tr></tr>
+                    <tr><input type="submit" name="立即转账"></tr>
+                </tr>
+            </tbody>
+        </table>
+    </form>
+    <script>
+        $(function () {
+            $("#myform").submit();
+        })
+    </script>
+</body>
+</html>
