@@ -2,6 +2,15 @@
     1.1 主要思考程序的设计模式，先从哪个知识点入手，再进行代码的优化。
     1.2 一定要多加练习，每天再忙也要有练习，否则你会很快的忘记其中的奥秘。
 2. 程序的主要步骤
-    2.1 python manage.py db init
-    2.2 python manage.py db migrate
-    2.3 python manage.py db upgrade
+    2.1 任何事情的发展都会有一个主线，程序的开发也不例外，刚做项目的时候，建议就从主程序入手，从导入的模块和引用的函数再向外扩展。
+    2.2 你需要设计数据库模型，需要db.model；其次开始views做为基类设计视图函数；再次开始设计wtforms设计表单及表单的验证器；再次开始设置命令的形式；最后是设置模板。
+3. 设置的manage.py中的命令
+    3.1 python manage.py db init
+    3.2 python manage.py db migrate
+    3.3 python manage.py db upgrade
+4. Flask修改ip和端口
+    4.1 在pycharm中设置edit configuration中的Additional options，设置的值为--host=127.0.0.1 --port=5001
+    4.2 解决问题的链接为：https://blog.csdn.net/camp_nou_xx/article/details/99830824
+5. CSRF防御
+    5.1 在cookie中添加一个csrf_token，在主程序中导入from flask_wtf import CSRFProtect，CSRFProtect(app)。
+    5.2 在body中也返回一个相同的csrf_token，即在表单中输入<input type="hidden" name="csrf_token" value="{{ csrf_token() }}">

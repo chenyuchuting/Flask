@@ -4,11 +4,13 @@ from exts import db
 import config
 from models import User
 from auth import login_required
+from flask_wtf import CSRFProtect
 
 
 app = Flask(__name__)
 app.config.from_object(config)
 db.init_app(app)
+CSRFProtect(app)
 
 @app.route('/')
 def hello_world():
@@ -42,6 +44,8 @@ class LoginView(views.MethodView):
 
     def post(self):
         form = LoginForm(request.form)
+        csrf_token = session.get('csrf_token')
+        print(csrf_token)
         if form.validate():
             email = form.email.data
             password = form.password.data

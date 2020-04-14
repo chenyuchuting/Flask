@@ -5,7 +5,8 @@
     <title>网商银行转账页面</title>
 </head>
 <body>
-    <form action="" method="post">
+    <form action="" method="post" id="myform">
+        <input type="hidden" name="csrf_token" value="{{ csrf_token() }}">
         <table>
             <tbody>
                 <tr>
