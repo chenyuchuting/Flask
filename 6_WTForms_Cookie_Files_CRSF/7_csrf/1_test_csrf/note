@@ -1,3 +1,7 @@
 1. CSRF攻击
     1.1 主要思考程序的设计模式，先从哪个知识点入手，再进行代码的优化。
-    1.2
+    1.2 一定要多加练习，每天再忙也要有练习，否则你会很快的忘记其中的奥秘。
+2. 程序的主要步骤
+    2.1 python manage.py db init
+    2.2 python manage.py db migrate
+    2.3 python manage.py db upgrade
