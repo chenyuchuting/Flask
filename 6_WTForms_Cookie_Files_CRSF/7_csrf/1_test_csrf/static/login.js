@@ -9,17 +9,17 @@ $(function () {
         var email = $('input[name=email]').val();
         var password = $('input[name=password]').val();
         // var csrf_token = $('input[name=csrf_token]').val();
-        var csrftoken = $('meta[name=csrf-token]').attr('content');
+        // var csrftoken = $('meta[name=csrf-token]').attr('content');
 
-        $.ajaxSetup({
-            "beforeSend": function(xhr, settings) {
-                if (!/^(GET|HEAD|OPTIONS|TRACE)$/i.test(settings.type) && !this.crossDomain) {
-                    xhr.setRequestHeader("X-CSRFToken", csrftoken)
-                }
-            }
-        });
+        // $.ajaxSetup({
+        //     "beforeSend": function(xhr, settings) {
+        //         if (!/^(GET|HEAD|OPTIONS|TRACE)$/i.test(settings.type) && !this.crossDomain) {
+        //             xhr.setRequestHeader("X-CSRFToken", csrftoken)
+        //         }
+        //     }
+        // });
 
-        $.post({
+        myajax.post({
             'url': '/login/',
             'data': {
                 'email': email,
