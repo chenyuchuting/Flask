@@ -5,12 +5,13 @@ import config
 from models import User
 from auth import login_required
 from flask_wtf import CSRFProtect
-
+# from flask_wtf import CsrfProtect
 
 app = Flask(__name__)
 app.config.from_object(config)
 db.init_app(app)
 CSRFProtect(app)
+# CsrfProtect(app)
 
 @app.route('/')
 def hello_world():

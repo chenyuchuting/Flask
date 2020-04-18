@@ -14,3 +14,5 @@
 5. CSRF防御
     5.1 在cookie中添加一个csrf_token，在主程序中导入from flask_wtf import CSRFProtect，CSRFProtect(app)。
     5.2 在body中也返回一个相同的csrf_token，即在表单中输入<input type="hidden" name="csrf_token" value="{{ csrf_token() }}">
+6. AJAX的CSRF防御
+    6.1 在AJAX中要使用csrf保护，则必须手动的添加X-CSRFToken到Header中，代码如下：<meta name="csrf-token" content="{{ csrf_token() }}">
