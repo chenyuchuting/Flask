@@ -16,12 +16,12 @@ var myajax = {
     },
     '_ajaxSetup': function () {
         $.ajaxSetup({
-            "beforeSend": function(xhr, settings) {
+            "beforeSend": function (xhr, settings) {
                 if (!/^(GET|HEAD|OPTIONS|TRACE)$/i.test(settings.type) && !this.crossDomain) {
                     var csrftoken = $('meta[name=csrf-token]').attr('content');
-                    xhr.setRequestHeader("X-CSRFToken", csrftoken)；
+                    xhr.setRequestHeader("X-CSRFToken", csrftoken);
                 }
             }
-        })
+        });
     }
-}
+};
