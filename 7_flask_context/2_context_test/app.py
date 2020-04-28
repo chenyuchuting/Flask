@@ -1,7 +1,7 @@
-from flask import Flask, request, session, url_for, current_app
+from flask import Flask, request, session, url_for, current_app, g
 from werkzeug.local import Local
 from threading import local
-
+from utils import log_a, log_b, log_c
 
 # 只要绑定在local对象上的属性
 # 每个线程都是隔离的
@@ -25,6 +25,15 @@ app = Flask(__name__)
 def hello_world():
     # print(current_app.name)
     print(url_for('index'))
+    # http://127.0.0.1:5000/?username=abc
+    username = request.args.get("username")
+    # log_a(username)
+    # log_b(username)
+    # log_c(username)
+    g.username = username
+    log_a()
+    log_b()
+    log_c()
     return 'Hello World!'
 
 
