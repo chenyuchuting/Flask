@@ -1,7 +1,16 @@
 1. Flask信号
     1.1 安装：flask中的信号使用的是一个第三方插件，叫做blinker。通过pip1ist看一下，如果没有安装，通过pip 1ist blinker的方式安装blinker。
 2. Flask内置的信号
-    2.1
+    2.1 template_rendered：模版渲染完成后的信号。
+    2.2 before_render_template：模版渲染之前的信号。
+    2.3 request_started：模版开始渲染。
+    2.4 request_finished：模版渲染完成。
+    2.5 request_tearing_down：request对象被销毁的信号。
+    2.6 got_request_exception：视图函数发生异常的信号。一般可以监听这个信号，来记录网站异常信息。
+    2.7 appcontext_tearing_down：app上下文被销毁的信号。
+    2.8 appcontext_pushed：app上下文被推入到栈上的信号。
+    2.9 appcontext_popped：app上下文被推出栈中的信号
+    2.10message_flashed：调用了Flask的“flashed方法的信号。
 3. Flask自定义信号
     3.1 自定义信号分为3步，第一是定义一个信号，第二是监听一个信号，第三是发送一个信号。
     3.2 定义信号：定义信号需要使用到blinker 这个包的Nonespace类来创建一个命名空间。
