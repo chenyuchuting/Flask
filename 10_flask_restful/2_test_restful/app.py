@@ -1,16 +1,17 @@
 from flask import Flask
 import config
 from exts import db
-from flask_restful import Api, Resource, fields, marshal_with
+from articleviews import article_bp
 
 from models import User, Article, Tag
 
 
 app = Flask(__name__)
 app.config.from_object(config)  # 加载配置文件
+app.register_blueprint(article_bp)
 # 写完数据库配置后需要和app绑定
 db.init_app(app)
-api = Api(app)
+# api = Api(app)
 
 
 # class Article(object):
@@ -35,30 +36,6 @@ api = Api(app)
 #         return article
 #
 # api.add_resource(ArticleView, '/article/', endpoint='article')
-
-
-class ArticleView(Resource):
-    resource_fields = {
-        'article_title': fields.String(attribute='title'),
-        'content': fields.String,
-        'author': fields.Nested({
-            'username': fields.String,
-            'email': fields.String
-        }),
-        'tags': fields.List(fields.Nested({
-            "id": fields.Integer,
-            'name': fields.String
-        })),
-        'read_count': fields.Integer(default=80)
-    }
-
-    @marshal_with(resource_fields)
-    # http://127.0.0.1:5000/article/1/
-    def get(self, article_id):
-        article = Article.query.get(article_id)
-        return article
-
-api.add_resource(ArticleView, '/article/<article_id>/', endpoint='article')
 
 
 @app.route('/')
