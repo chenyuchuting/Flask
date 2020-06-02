@@ -2,7 +2,6 @@ from flask import Flask
 import config
 from exts import db
 from articleviews import article_bp
-
 from models import User, Article, Tag
 
 

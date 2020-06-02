@@ -1,0 +1,52 @@
+1. 什么是memcached
+    1.1 memcached之前是danga的一个项目，最早是为LiveJourmal服务的，当初设计师为了加速LiveJourna访问速度而开发的，后来被很多大型项目采用。官网是ww.danga.com 或者是memcached.org.
+    1.2 memcached是一个高性能的分布式构存对象缓存系统，全世界有不少公司采用这个缓存项目未构建大负载的网站，来分担数据库的压力。Memcached是通过在内存里维护一个统一的巨大的hash表，memcached能存储各种各样的数据，包括图像、视频、文件、以及数据库检素的结果等。简单的说就是将数据调用到内存中，然后从内存中读取，从而大大提高读取速度。
+    1.3 哪些情况下适合使用Memcached：存储验证码（图形验证码、短信验证码）、登录session等所有不是至关重要的数据。
+2. Windows系统下安装和启动memcached
+    2.1 安装：memcached.exe -d install
+        2.1.1 cmd命令下：d:->cd memcached->必须安装1.4.5版本以下的
+        2.1.2 不要放在含有中文的路径下面
+    2.2 启动：memcached.exe -d start
+        2.3.1 -d：这个参数是让memcached在后台运行。
+        2.3.2 -m：指定占用多少内存。以M为单位，默认为64M。
+        2.3.3 -p：指定占用的端口。默认端口是11211。
+        2.3.4 -1：哪些ip地址可以链接，别的机器可以通过哪个ip地址连接到我这台服务器。如果是通过 service semcached start的方式，那么只能通过本机连接。如果想要让别的机器连接，就必须设置-l 0.0.0.0。。
+    2.3 下载网址：http://memcached.org/
+        2.3.1  https://www.runoob.com/memcached/window-install-memcached.html
+3. telnet登录memcached
+    3.1 设置地址：telnet ip地址 端口号，例如：telnet 127.0.0.1 11211
+        3.1.1 'telnet' 不是内部或外部命令，也不是可运行的程序或批处理文件。win10设置->应用->程序和功能->启用或关闭 Windows 功能->Telnet Client
+4. 常用的命令
+    4.1 set：在memcached中添加一个key->value，如果这个key之前是已经存在过，那么就会替换。否则就是添加。语法：set key 0[是否需要压缩] 60[过期时间] 7[字符的长度]例如：set name 0 100 7，注意在输入name的值时，需要是7个字母的长度，不能多也不能少。
+    4.2 get：从memcached中获取一个数据，根据key来获取。语法：get name。
+    4.3 add：给memcached添加键值对。如果memcached中之前已经存在了这个key，那么就添加失败，否则就添加成功。语法：add username[key] 0[是否需要压缩] 60[过期时间] 7[字符的长度]
+        注意：命令窗口出现ERROR才能进行下一条指令的操作。
+    4.4 delete：删除memcached中的一个键值对。语法：delete username[key]
+    4.5 flush_all：删除memcached中所有的键值对。这个命令比较简单粗暴，会一下子把所有数据都删除掉，所以要谨慎使用。语法：
+    4.6 incr：给memcached中那些数字类型的值进行相加操作。相加的项，都必须是数字类型，否则就会报错。语法：set age 0 120 2，incr age 2。
+    4.7 decr：给memcached中那些数字类型的值进行相减操作。相减的项，部必须是数字类型，否则也会报错。
+    4.8 stats：查看memcached的状态，一些有意义的参数如下：
+        4.8.1 get_hists：get命令命中了多少次。
+        4.8.2 get_misses：get命令get空了几次。
+        4.8.3 curr_items：当前memcached中的键值对的个数。
+        4.8.4 total_connections：从memcached开启到现在总共的连接数。
+        4.8.5 curr_connections：当前memcached的连接数。
+        4.8.6 memcached默认最大的连接数是1024。
+5. Python操作memcached
+    5.1 建立链接。
+    5.2 设置数据
+    5.3 获取数据
+    5.4 删除数据
+6. memcached的安全性
+    6.1 memcached的操作不需要任何用户名和密码，只需要知道memcached服务器的ip地址和端口号即可。因此memcached使用的时候尤其要注意他的安全性。这里提供两种安全的解决方案
+    6.2 使用-l参数设置为只有本地可以连接：这种方式，就只能通过本机才能连接，别的机器都不能访问，可以达到最好的安全性
+    6.3 使用防火墙，关闭11211端口，外面也不能访问。
+        6.3.1 ufw enable：开启防火墙
+        6.3.2 ufw disable：关闭防火远
+        6.3.3 ufw default deny：#防火境以禁的方式打开，默认是关闭那些没有开启的端口
+        6.3.4 ufw deny 端口号：关闭某个端
+        6.3.5 ufw allow 端口号：开启某个端口
+
+
+
+        
