@@ -1,0 +1,124 @@
+1. Redis
+    1.1 redis是一种nosql数据库他的数据是保存在内存中，同时redis可以定时把内存数据同步到磁盘，即可以将数据持久化，并且他比memcached 支持更多的数据结构（string，1ist列表[队列和楼]，set[集合]，sorted set[有序集合]，hash（hash表））。相关参考文档：http://redisdoc.com/index.html
+2. Redis使用场景
+    2.1 登录会话存储，存储在redis中，与memcached 相比，数据不会丢失。
+    2.2 排行版/计数器：比如一些秀场类的项目，经常会有一些前多少名的主播排名。还有一些文章阅读量的技术，或者新浪微博的点赞数等。
+    2.3 作为消息队列：比如celery 就是使用redis作为中间人。
+    2.4 当前在线人数：还是之前的秀场例子，会显示当前系统有多少在线人数。
+    2.5 一些常用的数据缓存：比如我们的8B5论坛，板块不会经常变化的，但是每次访问首页都要从mysql中获取，可以在redis中缓存起来，不用每次请求数据库。
+    2.6 把前200篇文章缓存或者评论缓存：一般用户浏览网站，只会浏览前面一部分文章或者评论，那么可以把前面200篇文章和对应的评论级存起来。用户访问超过的，就访问数据库，并且以后文章超过200篇，则把之前的文章删除。
+    2.7 好友关系：微博的好友关系使用redis实现。
+    2.8 发布和订阅功能：可以用来做聊天软件。
+3. windows安装redis
+    3.1 下载地址：https://github.com/tporadowski/redis/releases
+    3.2 学习地址：https://www.runoob.com/redis/redis-install.html
+    3.3 将下载好的Redis-x64-5.0.9.zip文件解压后放在根目录中，进入cmd命令窗口下，进入到D:\Redis，使用redis-server.exe redis.windows.conf，此窗口不能关闭。
+    3.4 再进入另外一个cmd命令窗口，输入：redis-cli.exe -h 127.0.0.1 -p 6379
+4. redis操作
+    4.1 添加：set [key] value，将字符串值value关联到key。如果key已经持有其他值，set命令就覆写旧值，无视其类型。并且默认的过期时间是永久，即永远不会过期。
+    4.2 获取：get [key]
+    4.3 删除：delete [key]
+    4.4 设置过期时间：
+        4.4.1 expire key [timeout]
+        4.4.2 set key value EX [timeout]
+        4.4.3 set key [timeout] value
+    4.5 查看过期时间
+        4.5.1 ttl key：查看剩余的时间
+    4.6 查看当前redis中的所有的key
+        4.6.1 keys *
+5. 列表操作
+    5.1 在列表左边添加元素：lpush key value。将值value插入到列表key的表头。如果key不存在，一个空列表会被创建并执行lpusn操作。当key 存在但不是列表类型时，将返回一个错误。例如：lpush websites www.baidu.com
+    5.2 在列表右边添加元素：rpush key value。将值value插入到列表key的表尾。如果key不存在，一个空列表会被创建并执行RPUSH操作。当key存在但不是列表类型时，返回一个错误。例如：rpush websites www.chain.com
+    5.3 查看列表中的元素：lrange key start stop。返回列表key中指定区间内的元素，区间以偏移量 start和stop指定如果要左边的第一个到最后的一个lrange key 0 -1。例如：lrange websites 0 -1
+    5.4 移除列表中的元素：
+        5.4.1 移除并返回列表key的头元素：lpop key。例如：lpop websites
+        5.4.2 移除并返回列表的尾元素：rpop key，返回右边删除的值。例如：rpop websites：例如：rpop websites
+        5.4.3 移除并返回列表key的中间元素：1rem key count value将删除key这个列表中，count个值为value的元素。例如：lrem websites 1 www.baidu.com
+    5.5 指定返回第几个元素，将返回key这个列表中，索引为index的这个元素。：lindex key index。例如：lindex websites 1。
+    5.6 获取列表中元素的个数：llen key。例如：llen websites
+    5.7 删除指定的元素：lrem key count value。根据参数count的值，移除列表中与参数value相等的元素。例如：lrem websites -1 www.baidu.comcount的值可以是以下几种：
+        5.7.1 count>0：从表头开始向表尾搜索，移除与value相等的元素，数量为count。
+        5.7.2 count<0：从表尾开始向表头搜索，移除与value相等的元素，数量为count的绝对值。
+        5.7.3 count=0：移除表中所有与value相等的值。
+6. 集合操作
+    6.1 添加元素：sadd set valuel value2....。例如：sadd name python php java，如果库存在相同名字的键，但是数据类型不同，则会显示错误：(error) WRONGTYPE Operation against a key holding the wrong kind of value。
+    6.2 查看元素：smembers set。例如：smembers name。
+    6.3 移除元素：srem set member...。例如：
+    6.4 查看集合中的元素个数：scard set。例如：srem name c
+    6.5 获取多个集合的交集：sinter set1 set2。例如：sinter name program。name："java" "python" "php"，program： "c++""python""c"
+    6.6 获取多个集合的并集：sunion set1 set2。例如：sunion name program
+    6.7 获取多个集合的差集：sdiff set1 set2。例如：sdiff name name1。name1："php"
+7. redis哈希操作
+    7.1 添加一个新值：hset key field valule，将哈希表key中的域field的值设为value。如果key不存在，一个新的哈希表被创建并进行HSET操作。如果域field已经存在于哈希表中，旧值将被覆盖。例如：hset person name link。
+    7.2 获取哈希中的field对应的值：hget key field。例如：hget person name。
+    7.3 删除field中的某个field：hdel key field。例如：hdel person age。
+    7.4 获取某个哈希中所有的field和value：hgetall key。例如：hgetall person。
+    7.5 获取某个哈希中所有的field：hkeys key。例如： hkeys person。
+    7.6 获取某个哈希中所有的值：hvals key。
+    7.7 判断哈希中是否存在某个field：hexists key field。例如：hexists person name
+    7.8 获取哈希中总共的键值对：hlen field。例如：hlen person。
+8. 事务操作
+    8.1 事务操作：Redis事务可以一次执行多个命令，事务具有以下特征：
+        8.1.1 隔离操作：事务中的所有命令都会序列化、按顺序地执行，不会被其他命令打扰。
+        8.1.2 原子操作：事务中的命令要么全部被执行，要么全部都不执行。
+    8.2 开启一个事务：multi以后执行的所有命令，都在这个事务中执行的。例如：先在cmd窗口中输入multi，接着开始索要执行的命令。
+    8.3 执行事务：exec会将在mu1ti和exec中的操作一并提交。将上述命令全部输入完成后，再输入exec。
+    8.4 取消事务：discard会将multi后的所有命令取消。或者不输入exec，输入 discard取消正在编辑的事务。
+    8.5 监视一个或者多个key：watch key [key...]监视一个(或多个) key ，如果在事务执行之前这个(或这些) key 被其他命令所改动，那么事务将被打断。例如：watch name后，你在其它的端口修改name值，那么事务将不会被执行。
+    8.6 unwatch：取消watch命令对所有key的监视。
+9. 发布和订阅
+    9.1 给某个频道发布消息：publish channel message。
+    9.2 订阅某个频道的消息：subscribe channe。
+    9.3 持久化：redis提供了两种数据备份方式，一种是RDB，另外一种是AOF。
+        9.3.1 在redis安装的文件夹内找到redis.windows。
+        9.3.2 修改上述的配置文件后，要进行redis服务的重启：service redis-server restart，再进入redis服务：redis-cli.exe -h 127.0.0.1 -p 6379。
+        9.3.3 链接：http://redisdoc.com/topic/persistence.html
+    9.4 发布的订阅的流程：
+        9.4.1 首先要启动redis，接着在同一台电脑cmd，输入进入命令。
+        9.4.2 在一个窗口输入：subscribe chatroom，另外一个窗口输入：publish chatroom "link"。
+    9.5 RDB同步机制
+        9.5.1 开启和关闭：默认情况下是开启了。如果想关闭，那么注释掉redis.conf文件中的所有save选项就可以了。
+        9.5.2 同步机制
+            save 900 1：如果在900s以内发生了1次数据更新操作，那么就会做一次同步操作。
+            save 300 10：如果在300s以内发生了10数据更新操作，那么就会做一次同步操作。
+            save 60 10000：如果在60s以内发生了10000数据更新操作，那么就会做一次同步操作。存储内容：具体的值，而是命令。并且是经过压缩后存储进去的。
+        9.5.3 储存路径：D:\Redis\redis.windows
+        9.5.4 优点
+            存储数据到文件中会进行压缩，文件体积比aof小。
+            因为存储的是redis具体的值，并且会经过压缩，因此在恢复的时候速度比AOF快。非常适用于备份。
+        9.5.5 缺点
+            RDB在多少时间内发生了多少写操作的时候就会出发同步机制，因为采用压缩机制，RDB在同步的时候都重新保存整个Redis中的数据，因此你一般会设置在最少5分钟才保存一次数据。在这种情况下，一旦服务器故障，会造成5分钟的数据丢失。
+            在数据保存进RDB的时候，Redis会fork出一个子进程用来同步，在数据量比较大的时候，可能会非常耗时。
+    9.6 AOF同步机制
+        9.6.1 开启和关闭：默认是关闭的。如果想要开启，那么修改redis.conf中的appendonly yes就可以了
+        9.6.2 同步机制
+            appendfsync always：每次有数据更新操作，都会同步到文件中。
+            appendfsync everysec：每秒进行一次更新。
+            appendfsync no：使用操作系统的方式进行更新。普遍是30s更新一次。
+        9.6.3 储存内容：存储的是具体的命令。不会进行压缩。
+        9.6.4 存储路径：根据redis.conf下的dir以及appendfilename来指定的
+        9.6.5 优点
+            AOF的策略是每秒钟或者每次发生写操作的时候都会同步，因此即使服务器故障，最多只会丢失1秒的数据。
+            AOF存储的是Redis命令，并且是直接追加到aof文件后面，因此每次备份的时候只要添加新的数据进去就可以了
+            如果A0F文件比较大了，那么Redis会进行重写，只保留最小的命令集合。
+        9.6.6 缺点：
+            AOF文件因为没有压缩，因此体积比RDB大。
+            AOF是在每秒或者每次写操作都进行备份，因此如果并发量比较大，效率可能有点慢。
+            AOF文件因为存储的是命令，因此在灾难恢复的时候Redis会重新运行AOF中的命令，速度不及RDB。
+    9.7 安全
+        9.7.1 设置密码：在redis.conf配置文件中，将requirepass pasword取消注释，并且指定你想设置的密码。
+        9.7.2 先登录上去，然后再使用auth password命令进行授权。
+        9.7.3 在连接的时候，通过-a参数指定密码进行连接。
+    9.8 其它机器连接redis
+        9.8.1 如果想要让其他机器连接本机的redis服务器，那么应该在redis.conf配置文件中，指定：bind 本机的ip地址。这样别的机器就能连接成功。不像是网上说的，要指定对方的ip地址。
+10 Python操作redis
+    10.1 安装redis包：pip install redis
+    10.2 在主程序中导入redis包：from redis import Redis，初始化一个redis实例。
+    10.3 具体的操作
+
+
+
+
+7. 删除
+    7.1 删除当前数据库中的所有Key：flushdb
+    7.2 删除所有数据库中的key：flushall
