@@ -35,6 +35,7 @@ cache = Redis(host='127.0.0.1', port='6379')
 
 
 # 发布与订阅，异步发送邮件
+# 此处push不同，要做个笔记
 ps = cache.pubsub()
 ps.subscribe('email')
 while True:
